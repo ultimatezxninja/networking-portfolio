@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UltimateZXNinja | Network Portfolio</title>
+  <title>ultimatezxninja | Network Portfolio</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=VT323&display=swap');
 
@@ -422,81 +422,142 @@
       filter: blur(2px);
     }
 
-    .core-glow {
+    .cube-field {
       position: absolute;
-      width: 420px;
-      height: 420px;
+      width: 520px;
+      height: 520px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(196,205,201,0.16), rgba(142,165,154,0.06) 42%, transparent 72%);
-      filter: blur(8px);
-      animation: pulseCore 3.5s ease-in-out infinite;
+      background: radial-gradient(circle, rgba(196,205,201,0.14), rgba(142,165,154,0.05) 42%, transparent 72%);
+      filter: blur(10px);
+      animation: fieldPulse 4s ease-in-out infinite;
     }
 
-    .network-core {
+    .wire-cube {
       position: relative;
-      width: min(520px, 90%);
-      aspect-ratio: 1;
+      width: 260px;
+      height: 260px;
+      transform-style: preserve-3d;
+      transform: rotateX(-18deg) rotateY(32deg);
+      animation: cubeFloat 5s ease-in-out infinite;
+      z-index: 4;
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border: 2px solid rgba(196,205,201,0.36);
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 18px, transparent 18px 36px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 18px, transparent 18px 36px);
+      box-shadow:
+        0 0 24px rgba(196,205,201,0.08),
+        inset 0 0 24px rgba(196,205,201,0.04);
+      overflow: hidden;
+    }
+
+    .cube-face::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        linear-gradient(90deg, transparent 0 36%, rgba(196,205,201,0.0) 38%, rgba(196,205,201,0.55) 43%, rgba(255,157,46,0.45) 48%, rgba(126,228,220,0.42) 53%, rgba(196,205,201,0.0) 58%, transparent 100%);
+      transform: translateX(-60%) rotate(18deg);
+      animation: linePulse 3.2s linear infinite;
+      mix-blend-mode: screen;
+      opacity: 0.58;
+    }
+
+    .front  { transform: translateZ(130px); }
+    .back   { transform: rotateY(180deg) translateZ(130px); }
+    .left   { transform: rotateY(-90deg) translateZ(130px); }
+    .right  { transform: rotateY(90deg) translateZ(130px); }
+    .top    { transform: rotateX(90deg) translateZ(130px); }
+    .bottom { transform: rotateX(-90deg) translateZ(130px); }
+
+    .cube-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 90px;
+      height: 90px;
+      border-radius: 16px;
+      transform: translate(-50%, -50%) translateZ(20px);
+      background:
+        linear-gradient(180deg, rgba(216,222,219,0.9), rgba(116,130,124,0.88));
+      box-shadow:
+        0 0 40px rgba(196,205,201,0.22),
+        inset 0 0 18px rgba(255,255,255,0.18);
+    }
+
+    .cube-core::before {
+      content: "CORE";
+      position: absolute;
+      inset: 0;
       display: grid;
       place-items: center;
-      z-index: 3;
+      color: #050707;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
     }
-
-    .core-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(196,205,201,0.22);
-      box-shadow: 0 0 22px rgba(196,205,201,0.08);
-    }
-
-    .core-ring.outer { width: 78%; height: 78%; animation: rotateSlow 16s linear infinite; }
-    .core-ring.inner { width: 48%; height: 48%; animation: rotateReverse 10s linear infinite; }
-
-    .core-node {
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, #d8dedb, #86978f);
-      border: 2px solid #050707;
-      box-shadow: 0 0 18px rgba(196,205,201,0.18);
-    }
-
-    .core-node.center {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(180deg, #d8dedb, #73867d);
-      box-shadow: 0 0 42px rgba(196,205,201,0.18), inset 0 0 20px rgba(255,255,255,0.12);
-    }
-
-    .core-node.n1 { top: 8%; left: 50%; transform: translateX(-50%); }
-    .core-node.n2 { right: 8%; top: 50%; transform: translateY(-50%); }
-    .core-node.n3 { bottom: 8%; left: 50%; transform: translateX(-50%); }
-    .core-node.n4 { left: 8%; top: 50%; transform: translateY(-50%); }
-
-    .core-link {
-      position: absolute;
-      background: linear-gradient(90deg, rgba(196,205,201,0.06), rgba(196,205,201,0.42), rgba(196,205,201,0.06));
-      transform-origin: center;
-    }
-
-    .core-link.l1, .core-link.l3 { width: 2px; height: 120px; }
-    .core-link.l2, .core-link.l4 { width: 120px; height: 2px; }
-    .core-link.l1 { top: 22%; }
-    .core-link.l3 { bottom: 22%; }
-    .core-link.l2 { right: 22%; }
-    .core-link.l4 { left: 22%; }
 
     .packet {
       position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--green-bright);
-      box-shadow: 0 0 14px rgba(196,205,201,0.68);
+      width: 26px;
+      height: 16px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, #d8dedb, #8ea59a);
+      border: 2px solid #050707;
+      box-shadow: 0 0 18px rgba(196,205,201,0.52);
+      overflow: hidden;
     }
 
-    .packet.one { animation: orbitCore 4s linear infinite; }
-    .packet.two { width: 7px; height: 7px; opacity: 0.8; animation: orbitCore 4s linear infinite reverse; }
+    .packet::before,
+    .packet::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border-left: 2px solid rgba(5,7,7,0.62);
+      border-bottom: 2px solid rgba(5,7,7,0.62);
+      transform-origin: center;
+    }
+
+    .packet::before {
+      transform: translate(-50%, -9px) rotate(-45deg);
+    }
+
+    .packet::after {
+      transform: translate(-50%, 6px) rotate(135deg);
+      opacity: 0.55;
+    }
+
+    .p1 { animation: cubePacket1 4s linear infinite; }
+    .p2 {
+      width: 22px;
+      height: 14px;
+      animation: cubePacket2 5s linear infinite;
+    }
+
+    .p3 {
+      width: 20px;
+      height: 13px;
+      animation: cubePacket3 3.5s linear infinite;
+    }
+
+    .cube-shadow {
+      position: absolute;
+      width: 360px;
+      height: 54px;
+      bottom: 112px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.66), transparent 72%);
+      filter: blur(7px);
+      animation: shadowShift 5s ease-in-out infinite;
+    }
 
     .pt-window,
     .mini,
@@ -747,29 +808,90 @@
     }
 
     @keyframes blink { 50% { opacity: 0; } }
-    @keyframes pulseCore { 0%, 100% { transform: scale(0.96); opacity: 0.72; } 50% { transform: scale(1.05); opacity: 1; } }
-    @keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes rotateReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-    @keyframes orbitCore { from { transform: rotate(0deg) translateX(150px) rotate(0deg); } to { transform: rotate(360deg) translateX(150px) rotate(-360deg); } }
+    @keyframes fieldPulse {
+      0%, 100% { transform: scale(0.95); opacity: 0.7; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    @keyframes cubeFloat {
+      0%, 100% {
+        transform: rotateX(-18deg) rotateY(32deg) translateY(0px);
+      }
+      50% {
+        transform: rotateX(-12deg) rotateY(42deg) translateY(-18px);
+      }
+    }
+
+    @keyframes shadowShift {
+      0%, 100% { transform: scaleX(1); opacity: 0.7; }
+      50% { transform: scaleX(0.78); opacity: 0.42; }
+    }
+
+    @keyframes cubePacket1 {
+      0% { transform: translate3d(24px, 24px, 0); }
+      25% { transform: translate3d(224px, 40px, 0); }
+      50% { transform: translate3d(224px, 224px, 0); }
+      75% { transform: translate3d(40px, 224px, 0); }
+      100% { transform: translate3d(24px, 24px, 0); }
+    }
+
+    @keyframes cubePacket2 {
+      0% { transform: translate3d(130px, 0px, 0); }
+      50% { transform: translate3d(240px, 130px, 0); }
+      100% { transform: translate3d(130px, 0px, 0); }
+    }
+
+    @keyframes cubePacket3 {
+      0% { transform: translate3d(0px, 130px, 0); }
+      50% { transform: translate3d(130px, 240px, 0); }
+      100% { transform: translate3d(0px, 130px, 0); }
+    }
+
+    @keyframes linePulse {
+      0% { transform: translateX(-62%) rotate(18deg); }
+      100% { transform: translateX(62%) rotate(18deg); }
+    } to { transform: rotate(360deg) translateX(150px) rotate(-360deg); } }
 
     @media (max-width: 1280px) {
       .nav a { min-width: auto; }
-      .hero-screen { grid-template-columns: 1fr; grid-template-rows: auto auto auto; min-height: auto; }
+      .hero-screen {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        min-height: auto;
+      }
       .hero-copy { padding: 46px 0 0; }
       .router-area { min-height: 480px; }
-      .pt-window { justify-self: stretch; max-width: none; height: 420px; }
-      .dashboard, .section-grid { grid-template-columns: 1fr; }
+      .pt-window {
+        justify-self: stretch;
+        max-width: none;
+        height: auto;
+      }
+      .dashboard,
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
       .layout { grid-template-rows: auto auto 42px; }
     }
 
     @media (max-width: 760px) {
-      .topbar { position: static; height: auto; grid-template-columns: 1fr; gap: 10px; padding: 14px 0; }
+      .topbar {
+        position: static;
+        height: auto;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 14px 0;
+      }
       .brand { padding-left: 18px; }
-      .nav { height: auto; flex-wrap: wrap; }
+      .nav {
+        height: auto;
+        flex-wrap: wrap;
+      }
       .nav a { padding: 12px 14px; }
       .layout { padding: 0 14px 18px; }
       h1 { font-size: 4.2rem; }
-      .network-core { transform: scale(0.82); }
+      .wire-cube {
+        transform: rotateX(-18deg) rotateY(32deg) scale(0.72);
+      }
       .router-area { min-height: 390px; }
       .section-page { padding: 70px 14px 24px; }
     }
@@ -819,23 +941,26 @@
         <a class="button" href="#operations"><span>&gt; access network</span><span>→</span></a>
       </div>
 
-      <div class="router-area" aria-label="Network core visual">
-        <div class="core-glow"></div>
-        <div class="network-core">
-          <div class="core-ring outer"></div>
-          <div class="core-ring inner"></div>
-          <div class="core-node center"></div>
-          <div class="core-node n1"></div>
-          <div class="core-node n2"></div>
-          <div class="core-node n3"></div>
-          <div class="core-node n4"></div>
-          <div class="core-link l1"></div>
-          <div class="core-link l2"></div>
-          <div class="core-link l3"></div>
-          <div class="core-link l4"></div>
-          <div class="packet one"></div>
-          <div class="packet two"></div>
+      <div class="router-area" aria-label="Wireframe datacenter cube visual">
+        <div class="cube-field"></div>
+
+        <div class="wire-cube">
+          <div class="cube-face front"></div>
+          <div class="cube-face back"></div>
+          <div class="cube-face left"></div>
+          <div class="cube-face right"></div>
+          <div class="cube-face top"></div>
+          <div class="cube-face bottom"></div>
+
+          <div class="cube-core"></div>
+
+          <div class="packet p1"></div>
+          <div class="packet p2"></div>
+          <div class="packet p3"></div>
         </div>
+
+        <div class="cube-shadow"></div>
+      </div>
       </div>
 
       <aside class="pt-window">
