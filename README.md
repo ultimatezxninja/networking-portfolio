@@ -1,2 +1,3 @@
 # networking-portfolio
-Personal networking and infrastructure portfolio showcasing Packet Tracer labs, troubleshooting, and cybersecurity projects.
+- Personal networking and infrastructure portfolio showcasing Packet Tracer labs, troubleshooting, and cybersecurity projects.
+- is a tree
